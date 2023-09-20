@@ -49,167 +49,167 @@ export const validateReqUpdateBodyUser = [
 ];
 
 
-export const validateUniqueCedula = async (req: Request, res: Response, next: Function) => {
+// export const validateUniqueCedula = async (req: Request, res: Response, next: Function) => {
 
-    const { id } = req.params;
-    const { cedula } = req.body;
+//     const { id } = req.params;
+//     const { cedula } = req.body;
 
-    const where = id ? {
-        cedula: cedula,
-        AND: {
-            NOT: {
-                id: Number(id)
-            }
-        },
+//     const where = id ? {
+//         cedula: cedula,
+//         AND: {
+//             NOT: {
+//                 id: Number(id)
+//             }
+//         },
 
-    } : { cedula: cedula };
+//     } : { cedula: cedula };
 
-    const user = await prisma.usuario.findUnique({
-        where: {
-            ...where
-        }
-    });
+//     const user = await prisma.usuario.findUnique({
+//         where: {
+//             ...where
+//         }
+//     });
 
-    if (user) {
-        return res.status(400).json({
-            status: "error",
-            message: "La cedula digitada ya existe",
-        });
-    }
+//     if (user) {
+//         return res.status(400).json({
+//             status: "error",
+//             message: "La cedula digitada ya existe",
+//         });
+//     }
 
-    next();
-}
+//     next();
+// }
 
-export const validateUniqueEmail = async (req: Request, res: Response, next: Function) => {
+// export const validateUniqueEmail = async (req: Request, res: Response, next: Function) => {
 
-    const { id } = req.params;
-    const { email } = req.body;
+//     const { id } = req.params;
+//     const { email } = req.body;
 
-    const where = id ? {
-        email: email,
-        AND: {
-            NOT: {
-                id: Number(id)
-            }
-        },
+//     const where = id ? {
+//         email: email,
+//         AND: {
+//             NOT: {
+//                 id: Number(id)
+//             }
+//         },
 
-    } : { email: email };
+//     } : { email: email };
 
-    const user = await prisma.usuario.findUnique({
-        where: {
-            ...where
-        }
-    });
+//     const user = await prisma.usuario.findUnique({
+//         where: {
+//             ...where
+//         }
+//     });
 
-    if (user) {
-        return res.status(400).json({
-            status: "error",
-            message: "El email digitado ya existe",
-        });
-    }
-    next();
-}
+//     if (user) {
+//         return res.status(400).json({
+//             status: "error",
+//             message: "El email digitado ya existe",
+//         });
+//     }
+//     next();
+// }
 
 
 
-export const getUserById = async (req: Request, res: Response, next: Function) => {
+// export const getUserById = async (req: Request, res: Response, next: Function) => {
 
-    const { id } = req.params;
-    const { idUsuario } = req.body;
+//     const { id } = req.params;
+//     const { idUsuario } = req.body;
 
-    var idU = idUsuario ? idUsuario : id;
+//     var idU = idUsuario ? idUsuario : id;
 
-    const user = await prisma.usuario.findUnique({
-        where: {
-            id: Number(idU),
-        }
-    });
+//     const user = await prisma.usuario.findUnique({
+//         where: {
+//             id: Number(idU),
+//         }
+//     });
 
-    if (!user) {
-        return res.status(404).json({
-            status: "error",
-            message: "El usuario no existe",
-        });
-    }
+//     if (!user) {
+//         return res.status(404).json({
+//             status: "error",
+//             message: "El usuario no existe",
+//         });
+//     }
 
-    next();
-}
+//     next();
+// }
 
-export const getStudentRelation = async (req: Request, res: Response, next: Function) => {
+// export const getStudentRelation = async (req: Request, res: Response, next: Function) => {
 
-    const { id } = req.params;
-    const { idEstudiante } = req.body;
+//     const { id } = req.params;
+//     const { idEstudiante } = req.body;
 
-    var idE = idEstudiante ? idEstudiante : id;
+//     var idE = idEstudiante ? idEstudiante : id;
 
-    const user = await prisma.usuario.findUnique({
-        where: {
-            id: Number(idE),
-        },
-        include: {
-            Estudiante: true,
-        }
-    });
+//     const user = await prisma.usuario.findUnique({
+//         where: {
+//             id: Number(idE),
+//         },
+//         include: {
+//             Estudiante: true,
+//         }
+//     });
 
-    if (user?.Estudiante.length !== 0) {
-        return res.status(404).json({
-            status: "error",
-            message: "El usuario esta relacionado con un Estudiante",
-        });
-    }
+//     if (user?.Estudiante.length !== 0) {
+//         return res.status(404).json({
+//             status: "error",
+//             message: "El usuario esta relacionado con un Estudiante",
+//         });
+//     }
 
-    next();
-}
+//     next();
+// }
 
-export const getTeacherRelation = async (req: Request, res: Response, next: Function) => {
+// export const getTeacherRelation = async (req: Request, res: Response, next: Function) => {
 
-    const { id } = req.params;
-    const { idProfesor } = req.body;
+//     const { id } = req.params;
+//     const { idProfesor } = req.body;
 
-    var idR = idProfesor ? idProfesor : id;
+//     var idR = idProfesor ? idProfesor : id;
 
-    const user = await prisma.usuario.findUnique({
-        where: {
-            id: Number(idR),
-        },
-        include: {
-            Profesor: true,
-        }
-    });
+//     const user = await prisma.usuario.findUnique({
+//         where: {
+//             id: Number(idR),
+//         },
+//         include: {
+//             Profesor: true,
+//         }
+//     });
 
-    if (user?.Profesor.length !== 0) {
-        return res.status(404).json({
-            status: "error",
-            message: "El usuario esta relacionado con un Profesor",
-        });
-    }
+//     if (user?.Profesor.length !== 0) {
+//         return res.status(404).json({
+//             status: "error",
+//             message: "El usuario esta relacionado con un Profesor",
+//         });
+//     }
 
-    next();
-}
+//     next();
+// }
 
-//TODO: Cambiar nombre -> manager (?) 
-export const getSupervisorRelation = async (req: Request, res: Response, next: Function) => {
+// //TODO: Cambiar nombre -> manager (?) 
+// export const getSupervisorRelation = async (req: Request, res: Response, next: Function) => {
 
-    const { id } = req.params;
-    const { idProfesor } = req.body;
+//     const { id } = req.params;
+//     const { idProfesor } = req.body;
 
-    var idE = idProfesor ? idProfesor : id;
+//     var idE = idProfesor ? idProfesor : id;
 
-    const user = await prisma.usuario.findUnique({
-        where: {
-            id: Number(idE),
-        },
-        include: {
-            Encargado: true,
-        }
-    });
+//     const user = await prisma.usuario.findUnique({
+//         where: {
+//             id: Number(idE),
+//         },
+//         include: {
+//             Encargado: true,
+//         }
+//     });
 
-    if (user?.Encargado.length !== 0) {
-        return res.status(404).json({
-            status: "error",
-            message: "El usuario esta relacionado con un Encargado",
-        });
-    }
+//     if (user?.Encargado.length !== 0) {
+//         return res.status(404).json({
+//             status: "error",
+//             message: "El usuario esta relacionado con un Encargado",
+//         });
+//     }
 
-    next();
-}
+//     next();
+// }

@@ -2,59 +2,57 @@ import { Router } from "express";
 import { check } from 'express-validator';
 import { getUsers, createUser, deleteUser, updateUser, getUserById } from "../controller/user.controller";
 import {
-    isInstitucionExist,
-    validateUniqueCedula, validateUniqueEmail,
-    getRolById,
-    FieldsMsg,
-    getStudentRelation,
-    getTeacherRelation,
-    getSupervisorRelation,
+    // isInstitucionExist,
+    // validateUniqueCedula, validateUniqueEmail,
+    // getRolById,
+    // FieldsMsg,
+    // getStudentRelation,
+    // getTeacherRelation,
+    // getSupervisorRelation,
     validateJWT,
-    checkInstitutionHeader,
+    // checkInstitutionHeader,
     validateReqBodyUser,
 } from "../middleware";
 
 const router = Router();
-  
-router.use(validateJWT) 
+
+router.use(validateJWT)
 
 router.post("/usuario", [
-    ...checkInstitutionHeader,
     ...validateReqBodyUser,
-    FieldsMsg,
+    // FieldsMsg,
 
-    getRolById,
-    isInstitucionExist,
+    // getRolById,
+    // isInstitucionExist,
 
-    validateUniqueCedula,
-    validateUniqueEmail,
+    // validateUniqueCedula,
+    // validateUniqueEmail,
 
 ], createUser);
 
 router.put("/usuario/:id", [
 
-    ...checkInstitutionHeader,
     ...validateReqBodyUser,
-    FieldsMsg,
+    // FieldsMsg,
 
-    getRolById,
-    isInstitucionExist,
+    // getRolById,
+    // isInstitucionExist,
 
-    getUserById,
-    validateUniqueCedula,
-    validateUniqueEmail,
+    // getUserById,
+    // validateUniqueCedula,
+    // validateUniqueEmail,
 
 ], updateUser);
 
-router.get("/usuario", [...checkInstitutionHeader, FieldsMsg], getUsers);
+router.get("/usuario", getUsers);
 
-router.get("/usuario/:id", [...checkInstitutionHeader, FieldsMsg], getUserById);
+router.get("/usuario/:id", getUserById);
 
 router.delete("/usuario/:id", [
 
-    ...checkInstitutionHeader, 
-    FieldsMsg, 
-    
+    // ...checkInstitutionHeader,
+    // FieldsMsg,
+
     getUserById,
     // isStudentRelation,
     // isTeacherRelation,
